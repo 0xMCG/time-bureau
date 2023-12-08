@@ -8,8 +8,8 @@ async function main() {
     network.name === "arb"
       ? "0xaf88d065e77c8cC2239327C5EDb3A432268e5831"
       : json["TestERC20"].address;
-  const timeNFTAddress = json["TimeNFT"].address;
-  const timeNFT = await ethers.getContractAt("TimeNFT", timeNFTAddress);
+  const timeNFTAddress = json["TimeBureau"].address;
+  const timeNFT = await ethers.getContractAt("TimeBureau", timeNFTAddress);
   const signer = (await ethers.getSigners())[0];
 
   const unixTime = Math.round(new Date().getTime() / 1000);

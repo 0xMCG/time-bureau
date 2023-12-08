@@ -1,5 +1,5 @@
 import { run } from "hardhat";
-import { getJson, writeJson } from "./json";
+import { getJson, saveAny } from "./hutils";
 
 const json = getJson();
 async function doVerify(name: string, args: any[]) {
@@ -11,7 +11,7 @@ async function doVerify(name: string, args: any[]) {
     });
     console.info("verified:", name, timenft.address);
     timenft.verify = true;
-    writeJson(json);
+    saveAny({ [name]: timenft })
   } else if (timenft) {
     console.info("allready verified:", name, timenft?.address);
   }

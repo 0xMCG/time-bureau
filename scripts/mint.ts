@@ -4,7 +4,7 @@ import { getJson } from "./hutils";
 async function main() {
     const json = getJson();
     const erc20Address = json["TestERC20"].address;
-    const timeNFTAddress = json["TimeNFT"].address;
+    const timeNFTAddress = json["TimeBureau"].address;
     const timeNFT = await ethers.getContractAt("TimeNFT", timeNFTAddress);
     const signer = (await ethers.getSigners())[0];
   
