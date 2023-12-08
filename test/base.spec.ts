@@ -1,9 +1,8 @@
-import { loadFixture, time } from "@nomicfoundation/hardhat-network-helpers";
+import { loadFixture } from "@nomicfoundation/hardhat-network-helpers";
 import { SignerWithAddress } from "@nomiclabs/hardhat-ethers/signers";
-import hre from "hardhat";
-import { TestERC20 } from "./../typechain-types/contracts/TestERC20";
-import { TimeNFT } from "./../typechain-types/contracts/TimeNFT";
 import { expect } from "chai";
+import hre from "hardhat";
+import { TestERC20, TimeBureau } from "./../typechain-types";
 
 const { provider } = hre.ethers;
 
@@ -16,13 +15,13 @@ async function deployContract<T>(name: string, args: any[]): Promise<T> {
 }
 
 describe("TimeNFT", function () {
-  let timeNFT: TimeNFT;
+  let timeNFT: TimeBureau;
   let testERC20: TestERC20;
   let admin: SignerWithAddress;
   let user1: SignerWithAddress;
 
   async function setupFixture() {
-    const timeNFT = await deployContract<TimeNFT>("TimeNFT", ["uri://"]);
+    const timeNFT = await deployContract<TimeNFT>("TimeBureau", ["uri://"]);
     const testERC20 = await deployContract<TestERC20>("TestERC20", []);
     const [admin, user1, user2, user3] = await hre.ethers.getSigners();
     return { timeNFT, testERC20, admin, user1, user2, user3 };
@@ -43,12 +42,8 @@ describe("TimeNFT", function () {
       admin.address
     );
 
-    await testERC20
-      .connect(admin)
-      .transfer(user1.address, hre.ethers.utils.parseEther("10000"));
-    await testERC20
-      .connect(user1)
-      .approve(timeNFT.address, hre.ethers.utils.parseEther("100"));
+    await testERC20.connect(admin).transfer(user1.address, hre.ethers.utils.parseEther("10000"));
+    await testERC20.connect(user1).approve(timeNFT.address, hre.ethers.utils.parseEther("100"));
 
     await timeNFT.connect(user1).mint(1, user1.address);
     await timeNFT.connect(admin).mint(6, admin.address);
@@ -79,12 +74,8 @@ describe("TimeNFT", function () {
       admin.address
     );
 
-    await testERC20
-      .connect(admin)
-      .transfer(user1.address, hre.ethers.utils.parseEther("10000"));
-    await testERC20
-      .connect(user1)
-      .approve(timeNFT.address, hre.ethers.utils.parseEther("100"));
+    await testERC20.connect(admin).transfer(user1.address, hre.ethers.utils.parseEther("10000"));
+    await testERC20.connect(user1).approve(timeNFT.address, hre.ethers.utils.parseEther("100"));
 
     await timeNFT.connect(user1).mint(1, user1.address);
     await timeNFT.connect(admin).mint(6, admin.address);
