@@ -7,7 +7,7 @@ async function main() {
   const timeNFTAddress = await deployContract("TimeBureau", ["ipfs://QmZ7kyGEaKZkFmo6gb6tMXqPFq6THquHweixhccGi6mMnq"]);
 
   const wrapDeployErc20 = async () => {
-    if (network.name == "arb_goerli" || network.name == "sepolia") {
+    if (network.name == "arb_sepolia" || network.name == "sepolia") {
       return await deployContract("TestERC20",[]);
     }
     if (network.name == "arb")
